@@ -3,35 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bhaskara com Números Complexos</title>
+  <title>Bhaskara</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f1fc;
+      font-family: 'Inter', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
       margin: 0;
       padding: 20px;
-      color: #333;
     }
 
     .container {
       max-width: 420px;
       margin: auto;
-      background-color: #fff;
+      background-color: #1e1e2f;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(100, 255, 255, 0.05);
     }
 
     h1 {
       font-size: 24px;
       text-align: center;
-      color: #222;
+      color: #80eaff;
+      margin-bottom: 10px;
     }
 
     label {
       display: block;
       margin-top: 15px;
-      font-weight: bold;
+      color: #9be7ff;
     }
 
     input {
@@ -39,8 +42,10 @@
       padding: 10px;
       margin-top: 5px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: 1px solid #333;
       font-size: 16px;
+      background-color: #222;
+      color: #fff;
     }
 
     button {
@@ -48,41 +53,49 @@
       width: 100%;
       padding: 12px;
       font-size: 16px;
-      background-color: #6a4cbc;
-      color: white;
+      background-color: #2196f3;
+      color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
     }
 
     button:hover {
-      background-color: #5735a5;
+      background-color: #1e88e5;
+      box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
     }
 
     .resultado {
       margin-top: 20px;
-      background: #f1edfa;
+      background: #181829;
       padding: 15px;
       border-radius: 8px;
       font-size: 16px;
+      color: #f0f0f0;
+      border-left: 4px solid #80eaff;
+    }
+
+    .resultado strong {
+      color: #00e5ff;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Fórmula de Bhaskara</h1>
-    <p>Digite os coeficientes da equação ax² + bx + c = 0:</p>
+    <p style="text-align:center;">Digite os coeficientes da equação <em>ax² + bx + c = 0</em>:</p>
 
     <label for="a">Coeficiente a</label>
-    <input type="number" id="a" placeholder="Ex: 1">
+    <input type="number" id="a" placeholder="Ex: 1" step="any">
 
     <label for="b">Coeficiente b</label>
-    <input type="number" id="b" placeholder="Ex: -3">
+    <input type="number" id="b" placeholder="Ex: -3" step="any">
 
     <label for="c">Coeficiente c</label>
-    <input type="number" id="c" placeholder="Ex: 2">
+    <input type="number" id="c" placeholder="Ex: 2" step="any">
 
-    <button onclick="calcular()">Calcular Delta e Raízes</button>
+    <button onclick="calcular()">Calcular</button>
 
     <div class="resultado" id="resultado"></div>
   </div>
@@ -95,26 +108,26 @@
       const resultado = document.getElementById('resultado');
 
       if (isNaN(a) || isNaN(b) || isNaN(c)) {
-        resultado.innerHTML = "Por favor, preencha todos os coeficientes com números.";
+        resultado.innerHTML = "⚠️ Por favor, preencha todos os coeficientes com números válidos.";
         return;
       }
 
       if (a === 0) {
-        resultado.innerHTML = "O coeficiente 'a' não pode ser zero.";
+        resultado.innerHTML = "⚠️ O coeficiente 'a' não pode ser zero.";
         return;
       }
 
       const delta = b * b - 4 * a * c;
-      let texto = `<strong>Delta:</strong> ${delta}<br>`;
+      let texto = `<strong>Delta:</strong> ${delta.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}<br>`;
 
       if (delta > 0) {
         const x1 = (-b + Math.sqrt(delta)) / (2 * a);
         const x2 = (-b - Math.sqrt(delta)) / (2 * a);
-        texto += `<strong>Raiz x₁:</strong> ${x1.toFixed(2)}<br>`;
-        texto += `<strong>Raiz x₂:</strong> ${x2.toFixed(2)}`;
+        texto += `<strong>Raiz x₁:</strong> ${x1.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}<br>`;
+        texto += `<strong>Raiz x₂:</strong> ${x2.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}`;
       } else if (delta === 0) {
         const x = -b / (2 * a);
-        texto += `<strong>Raiz única:</strong> ${x.toFixed(2)}`;
+        texto += `<strong>Raiz única:</strong> ${x.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}`;
       } else {
         const parteReal = (-b / (2 * a)).toFixed(2);
         const parteImaginaria = (Math.sqrt(-delta) / (2 * a)).toFixed(2);
