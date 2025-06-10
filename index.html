@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhaskara com Números Complexos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f1fc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      color: #222;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #6a4cbc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5735a5;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      background: #f1edfa;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fórmula de Bhaskara</h1>
+    <p>Digite os coeficientes da equação ax² + bx + c = 0:</p>
+
+    <label for="a">Coeficiente a</label>
+    <input type="number" id="a" placeholder="Ex: 1">
+
+    <label for="b">Coeficiente b</label>
+    <input type="number" id="b" placeholder="Ex: -3">
+
+    <label for="c">Coeficiente c</label>
+    <input type="number" id="c" placeholder="Ex: 2">
+
+    <button onclick="calcular()">Calcular Delta e Raízes</button>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    function calcular() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+      const resultado = document.getElementById('resultado');
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        resultado.innerHTML = "Por favor, preencha todos os coeficientes com números.";
+        return;
+      }
+
+      if (a === 0) {
+        resultado.innerHTML = "O coeficiente 'a' não pode ser zero.";
+        return;
+      }
+
+      const delta = b * b - 4 * a * c;
+      let texto = `<strong>Delta:</strong> ${delta}<br>`;
+
+      if (delta > 0) {
+        const x1 = (-b + Math.sqrt(delta)) / (2 * a);
+        const x2 = (-b - Math.sqrt(delta)) / (2 * a);
+        texto += `<strong>Raiz x₁:</strong> ${x1.toFixed(2)}<br>`;
+        texto += `<strong>Raiz x₂:</strong> ${x2.toFixed(2)}`;
+      } else if (delta === 0) {
+        const x = -b / (2 * a);
+        texto += `<strong>Raiz única:</strong> ${x.toFixed(2)}`;
+      } else {
+        const parteReal = (-b / (2 * a)).toFixed(2);
+        const parteImaginaria = (Math.sqrt(-delta) / (2 * a)).toFixed(2);
+        texto += `<strong>Raiz x₁:</strong> ${parteReal} + ${parteImaginaria}i<br>`;
+        texto += `<strong>Raiz x₂:</strong> ${parteReal} - ${parteImaginaria}i`;
+      }
+
+      resultado.innerHTML = texto;
+    }
+  </script>
+</body>
+</html>
